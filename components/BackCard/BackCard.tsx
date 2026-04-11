@@ -3,6 +3,8 @@ import EmptyStar from "@/assets/icon/EmptyStar.svg";
 import Star from "@/assets/icon/Star.svg";
 import Basket from "@/assets/icon/basket.png";
 import Image from "next/image";
+import { useState } from "react";
+import ConfirmModal from "@/components/ConfirmModal/ConfirmModal";
 
 interface BackCardProps {
   props: Card;
@@ -11,6 +13,8 @@ interface BackCardProps {
 }
 
 const BackCard = ({ props, handleRemove, onToggleFavorite }: BackCardProps) => {
+  const [showConfirm, setShowConfirm] = useState(false);
+
   return (
     <div className="back-card p-6 h-full flex flex-col dark:bg-[#1f2937]">
       <div className="flex items-center justify-between">
@@ -79,7 +83,7 @@ const BackCard = ({ props, handleRemove, onToggleFavorite }: BackCardProps) => {
       </div>
 
       <button
-        onClick={() => handleRemove(props.id)}
+        onClick={() => setShowConfirm(true)}
         className="w-full bg-red-500 text-white py-2 px-4 rounded-full hover:bg-red-600 flex items-center justify-center mt-4 cursor-pointer"
       >
         <Image
@@ -91,6 +95,18 @@ const BackCard = ({ props, handleRemove, onToggleFavorite }: BackCardProps) => {
         />
         Delete
       </button>
+
+      {showConfirm && (
+        <ConfirmModal
+          title="Delete card?"
+          message={`Are you sure you want to delete "${props.title}"? This action cannot be undone.`}
+          onConfirm={() => {
+            handleRemove(props.id);
+            setShowConfirm(false);
+          }}
+          onCancel={() => setShowConfirm(false)}
+        />
+      )}
     </div>
   );
 };

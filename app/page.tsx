@@ -1,15 +1,11 @@
 "use client";
 
 import { useEffect, useState } from "react";
-import { motion } from "framer-motion";
-import BackCard from "@/components/BackCard/BackCard";
-import FlipCard from "@/components/FlipCard/FlipCard";
-import FrontCard from "@/components/FrontCard/FrontCard";
 import { cards } from "@/data/cards";
 import { Card } from "@/types/Card";
-import ThemeToggle from "@/components/ThemeToggle/ThemeToggle";
 import AddCardForm from "@/components/AddCardForm/AddCardForm";
 import Header from "@/components/Header/Header";
+import CardList from "@/components/CardList/CardList";
 
 const STORAGE_KEY = "interactive-flip-cards";
 
@@ -31,8 +27,6 @@ export default function Home() {
     }
   });
 
-  const [dragIndex, setDragIndex] = useState<number | null>(null);
-  const [draggedId, setDraggedId] = useState<string | null>(null);
   const [isOpenForm, setIsOpenForm] = useState(false);
 
   useEffect(() => {
@@ -53,31 +47,6 @@ export default function Home() {
         card.id === id ? { ...card, isFavorite: !card.isFavorite } : card,
       ),
     );
-  };
-
-  const handleDragStart = (index: number, id: string) => {
-    setDragIndex(index);
-    setDraggedId(id);
-  };
-
-  const handleDragEnd = () => {
-    setDragIndex(null);
-    setDraggedId(null);
-  };
-
-  const handleDrop = (index: number) => {
-    if (dragIndex === null || dragIndex === index) {
-      handleDragEnd();
-      return;
-    }
-    const newList = [...cardList];
-    [newList[dragIndex], newList[index]] = [newList[index], newList[dragIndex]];
-    setCardList(newList);
-    handleDragEnd();
-  };
-
-  const handleDragOver = (event: React.DragEvent<HTMLDivElement>) => {
-    event.preventDefault();
   };
 
   const handleToggleForm = () => {
@@ -108,6 +77,8 @@ export default function Home() {
           >
             {isOpenForm ? "❌ Close Form" : "✨ Add Card"}
           </div>
+
+
           {isOpenForm && <AddCardForm onAdd={handleAddCard} />}
 
           <div
@@ -117,43 +88,19 @@ export default function Home() {
           >
             💡{" "}
             <span className="text-[#193cb8] dark:text-[#8ec5ff]">
-              <strong className="text-[#193cb8] dark:text-[#8ec5ff] font-bold" >Підказка:</strong>{" "}
-              Перетягуйте картки, щоб змінити їх порядок
+              <strong className="text-[#193cb8] dark:text-[#8ec5ff] font-bold">
+                Tip:
+              </strong>{" "}
+              Drag the cards to reorder them
             </span>
           </div>
 
-          <div className="grid grid-cols-1 gap-8 justify-items-center md:grid-cols-2 xl:grid-cols-3">
-            {cardList.map((card, index) => (
-              <motion.div
-                key={card.id}
-                layout
-                initial={{ opacity: 0, y: 20 }}
-                animate={
-                  draggedId === card.id
-                    ? { opacity: 0.9, scale: 1.02, zIndex: 20 }
-                    : { opacity: 1, scale: 1, zIndex: 0 }
-                }
-                whileHover={{ y: -6, scale: 1.01 }}
-                transition={{ type: "spring", stiffness: 280, damping: 26 }}
-                className="w-full max-w-120 relative rounded-2xl"
-              >
-                <FlipCard
-                  onDragStart={() => handleDragStart(index, card.id)}
-                  onDragEnd={handleDragEnd}
-                  onDrop={() => handleDrop(index)}
-                  onDragOver={handleDragOver}
-                  front={<FrontCard {...card} />}
-                  back={
-                    <BackCard
-                      props={card}
-                      handleRemove={handleRemoveCard}
-                      onToggleFavorite={handleToggleFavorite}
-                    />
-                  }
-                />
-              </motion.div>
-            ))}
-          </div>
+          <CardList
+            cardList={cardList}
+            setCardList={setCardList}
+            onRemove={handleRemoveCard}
+            onToggleFavorite={handleToggleFavorite}
+          />
         </div>
       </main>
     </>

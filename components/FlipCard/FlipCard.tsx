@@ -1,6 +1,7 @@
 "use client";
 
 import { useState } from "react";
+import { useFlipSound } from "@/hooks/useFlipSound";
 
 interface FlipCardProps {
   front: React.ReactNode;
@@ -20,6 +21,7 @@ const FlipCard = ({
   onDragOver,
 }: FlipCardProps) => {
   const [flipped, setFlipped] = useState(false);
+  const playFlip = useFlipSound();
   const containerStyle: React.CSSProperties = {
     width: "100%",
     maxWidth: "480px",
@@ -55,8 +57,14 @@ const FlipCard = ({
   };
 
   const hoverProps = {
-    onMouseEnter: () => setFlipped(true),
-    onMouseLeave: () => setFlipped(false),
+    onMouseEnter: () => {
+      setFlipped(true);
+      playFlip();
+    },
+    onMouseLeave: () => {
+      setFlipped(false);
+      playFlip();
+    },
   };
   return (
     <div
