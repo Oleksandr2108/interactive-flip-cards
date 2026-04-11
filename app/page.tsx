@@ -31,6 +31,7 @@ export default function Home() {
 
   const [dragIndex, setDragIndex] = useState<number | null>(null);
   const [draggedId, setDraggedId] = useState<string | null>(null);
+  const [isOpenForm, setIsOpenForm] = useState(false);
 
   useEffect(() => {
     window.localStorage.setItem(STORAGE_KEY, JSON.stringify(cardList));
@@ -42,6 +43,14 @@ export default function Home() {
 
   const handleRemoveCard = (id: string) => {
     setCardList((prev) => prev.filter((card) => card.id !== id));
+  };
+
+  const handleToggleFavorite = (id: string) => {
+    setCardList((prev) =>
+      prev.map((card) =>
+        card.id === id ? { ...card, isFavorite: !card.isFavorite } : card,
+      ),
+    );
   };
 
   const handleDragStart = (index: number, id: string) => {
@@ -69,10 +78,30 @@ export default function Home() {
     event.preventDefault();
   };
 
+  const handleToggleForm = () => {
+    setIsOpenForm((prev) => !prev);
+  };
+
   return (
     <main className="min-h-screen bg-slate-50 text-slate-950 p-8">
       <div className="space-y-10">
-        <AddCardForm onAdd={handleAddCard} />
+        <div
+          className="
+          w-40
+          flex items-center justify-center 
+          shadow-[0_4px_6px_-4px_rgba(0,0,0,0.1),0_10px_15px_-3px_rgba(0,0,0,0.1)] 
+          bg-linear-to-r 
+          from-[#155dfc] to-[#9810fa] 
+          rounded-[10px] 
+          px-6 py-3 
+          text-[16px]  font-semibold text-white
+          cursor-pointer"
+          onClick={handleToggleForm}
+        >
+          {isOpenForm ? "❌ Close Form" : "✨ Add Card"}
+          
+        </div>
+        {isOpenForm && <AddCardForm onAdd={handleAddCard} />}
         <div className="grid grid-cols-1 gap-8 md:grid-cols-2 xl:grid-cols-3">
           {cardList.map((card, index) => (
             <motion.div
@@ -98,6 +127,7 @@ export default function Home() {
                   <BackCard
                     props={card}
                     handleRemove={handleRemoveCard}
+                    onToggleFavorite={handleToggleFavorite}
                   />
                 }
               />

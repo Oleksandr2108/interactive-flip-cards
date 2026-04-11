@@ -7,9 +7,12 @@ import Image from "next/image";
 interface BackCardProps {
   props: Card;
   handleRemove: (id: string) => void;
+  onToggleFavorite: (id: string) => void;
 }
 
-const BackCard = ({ props, handleRemove }: BackCardProps) => {
+const BackCard = ({ props, handleRemove, onToggleFavorite }: BackCardProps) => {
+  const handleToggleFavorite = () => {};
+
   return (
     <div className="back-card p-6 h-full flex flex-col">
       <div className="flex items-center justify-between">
@@ -22,6 +25,8 @@ const BackCard = ({ props, handleRemove }: BackCardProps) => {
             alt="Favorite"
             width={24}
             height={24}
+            className="cursor-pointer"
+            onClick={() => onToggleFavorite(props.id)}
           />
         ) : (
           <Image
@@ -29,6 +34,8 @@ const BackCard = ({ props, handleRemove }: BackCardProps) => {
             alt="Not Favorite"
             width={24}
             height={24}
+            className="cursor-pointer"
+            onClick={() => onToggleFavorite(props.id)}
           />
         )}
         <div className="rounded-full px-3 py-1 bg-[#2b7fff] flex items-center">
