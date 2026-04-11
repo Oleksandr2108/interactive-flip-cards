@@ -112,18 +112,17 @@ export default function Home() {
 
           <div
             className=" w-full rounded-xl flex items-center justify-center py-4 mb-5 text-sm text-center 
-                bg-[#eff6ff] text-[#193cb8] border border-[#bedbff] 
+                bg-[#eff6ff] dark:bg-[#1C398E]/20  border border-[#bedbff] dark:border-[#193cb8] 
             "
-          
           >
             💡{" "}
-            <span style={{ color: "var(--muted)" }}>
-              <strong style={{ color: "#193cb8" }}>Підказка:</strong>{" "}
+            <span className="text-[#193cb8] dark:text-[#8ec5ff]">
+              <strong className="text-[#193cb8] dark:text-[#8ec5ff] font-bold" >Підказка:</strong>{" "}
               Перетягуйте картки, щоб змінити їх порядок
             </span>
           </div>
 
-          <div className="grid grid-cols-1 gap-8 md:grid-cols-2 xl:grid-cols-3">
+          <div className="grid grid-cols-1 gap-8 justify-items-center md:grid-cols-2 xl:grid-cols-3">
             {cardList.map((card, index) => (
               <motion.div
                 key={card.id}
@@ -136,7 +135,7 @@ export default function Home() {
                 }
                 whileHover={{ y: -6, scale: 1.01 }}
                 transition={{ type: "spring", stiffness: 280, damping: 26 }}
-                className="w-120 relative rounded-2xl"
+                className="w-full max-w-120 relative rounded-2xl"
               >
                 <FlipCard
                   onDragStart={() => handleDragStart(index, card.id)}

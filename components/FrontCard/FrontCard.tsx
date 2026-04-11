@@ -29,7 +29,7 @@ const FrontCard = (props: FrontCardProps) => {
           />
         )}
       </div>
-      <div className="w-120 h-50 overflow-hidden rounded-t-lg">
+      <div className="w-full h-50 overflow-hidden rounded-t-lg">
         <Image
           width={480}
           height={200}
