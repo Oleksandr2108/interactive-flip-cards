@@ -1,6 +1,11 @@
 import { Card } from "@/types/Card";
 
-const BackCard = (props: Card) => {
+interface BackCardProps {
+  props: Card;
+  handleRemove: (id: string) => void;
+}
+
+const BackCard = ({ props, handleRemove }: BackCardProps) => {
   return (
     <div className="back-card p-6">
       <div className="flex items-center justify-between">
@@ -12,7 +17,7 @@ const BackCard = (props: Card) => {
         ) : (
           <span className="text-amber-500 text-lg ml-2">☆</span>
         )}
-        <div className="rounded-full px-3 py-1 bg-[#2b7fff]">
+        <div className="rounded-full px-3 py-1 bg-[#2b7fff] flex items-center">
           <span className="text-xs text-white">{props.stats.rarity}</span>
         </div>
       </div>
@@ -20,9 +25,6 @@ const BackCard = (props: Card) => {
         {props.description}
       </p>
       <div>
-
-
-
         <p className="mt-3 flex justify-between text-sm font-bold text-[#364153]">
           <span>Power :</span>
           <span className="text-[#fb2c36]">{props.stats.power}</span>
@@ -52,6 +54,15 @@ const BackCard = (props: Card) => {
             className="h-full bg-[#00c950] rounded-full"
             style={{ width: `${props.stats.speed}%` }}
           />
+        </div>
+
+        <div>
+          <button
+            onClick={() => handleRemove(props.id)}
+            className="bg-red-500 text-white py-2 px-4 rounded-full hover:bg-red-600"
+          >
+            Remove Card
+          </button>
         </div>
 
         {/* <p className="h-10 text-lg font-bold text-[#101828]">
