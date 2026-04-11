@@ -12,7 +12,7 @@ interface FrontCardProps {
 const FrontCard = (props: FrontCardProps) => {
   return (
     <div className="relative">
-      <div className="bg-white flex items-center justify-center absolute rounded-full w-10 h-10 top-3 right-3 z-10">
+      <div className="bg-white flex items-center justify-center absolute rounded-full w-10 h-10 top-3 right-3 z-10 dark:bg-[#1f2937]">
         {props.isFavorite ? (
           <Image
             src={Star}
@@ -38,35 +38,49 @@ const FrontCard = (props: FrontCardProps) => {
           className="w-full h-full object-cover"
         />
       </div>
-      <div className="h-20 bg-white rounded-b-lg p-4 ">
+      <div className="h-20 bg-white rounded-b-lg p-4 dark:bg-[#1f2937]">
         <div>
           {props.category === "fire" && (
             <div className="flex items-center ">
               <span className="text-red-500 text-sm font-bold mr-2">🔥</span>
-              <div className="bg-[#e5e7eb] rounded-full py-1 px-3"> Fire</div>
+              <div className="bg-[#e5e7eb] rounded-full py-1 px-3 dark:bg-[#374151] dark:text-slate-100">
+                {" "}
+                Fire
+              </div>
             </div>
           )}
           {props.category === "water" && (
             <div className="flex items-center ">
               <span className="text-blue-500 text-sm font-bold mr-2">💧</span>
-              <div className="bg-[#e5e7eb] rounded-full py-1 px-3"> Water</div>
+              <div className="bg-[#e5e7eb] rounded-full py-1 px-3 dark:bg-[#374151] dark:text-slate-100">
+                {" "}
+                Water
+              </div>
             </div>
           )}
           {props.category === "earth" && (
             <div className="flex items-center ">
               <span className="text-green-500 text-sm font-bold mr-2">🌍</span>
-              <div className="bg-[#e5e7eb] rounded-full py-1 px-3"> Earth</div>
+              <div className="bg-[#e5e7eb] rounded-full py-1 px-3 dark:bg-[#374151] dark:text-slate-100">
+                {" "}
+                Earth
+              </div>
             </div>
           )}
           {props.category === "air" && (
             <div className="flex items-center ">
               <span className="text-gray-500 text-sm font-bold mr-2">💨</span>
-              <div className="bg-[#e5e7eb] rounded-full py-1 px-3"> Air</div>
+              <div className="bg-[#e5e7eb] rounded-full py-1 px-3 dark:bg-slate-700 dark:text-slate-100">
+                {" "}
+                Air
+              </div>
             </div>
           )}
         </div>
         <div>
-          <h3 className={`font-bold text-xl  text-[#101828] text-center`}>
+          <h3
+            className={`font-bold text-xl text-[#101828] text-center dark:text-slate-100`}
+          >
             {props.title}
           </h3>
         </div>

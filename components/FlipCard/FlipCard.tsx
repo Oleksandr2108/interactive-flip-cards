@@ -68,8 +68,8 @@ const FlipCard = ({
       {...hoverProps}
     >
       <div style={innerStyle}>
-        <div style={faceBase}>{front}</div>
-        <div style={backStyle}>{back}</div>
+        <div style={faceBase} className="bg-white dark:bg-[#1f2937]">{front}</div>
+        <div style={backStyle} className="bg-white dark:bg-[#1f2937]">{back}</div>
       </div>
     </div>
   );

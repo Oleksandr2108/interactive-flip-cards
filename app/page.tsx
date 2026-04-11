@@ -5,9 +5,11 @@ import { motion } from "framer-motion";
 import BackCard from "@/components/BackCard/BackCard";
 import FlipCard from "@/components/FlipCard/FlipCard";
 import FrontCard from "@/components/FrontCard/FrontCard";
-import AddCardForm from "@/components/AddCardForm/AddCardForm";
 import { cards } from "@/data/cards";
 import { Card } from "@/types/Card";
+import ThemeToggle from "@/components/ThemeToggle/ThemeToggle";
+import AddCardForm from "@/components/AddCardForm/AddCardForm";
+import Header from "@/components/Header/Header";
 
 const STORAGE_KEY = "interactive-flip-cards";
 
@@ -82,11 +84,17 @@ export default function Home() {
     setIsOpenForm((prev) => !prev);
   };
 
+  const cardFavoriteCount = cardList.filter((card) => card.isFavorite).length;
   return (
-    <main className="min-h-screen bg-slate-50 text-slate-950 p-8">
-      <div className="space-y-10">
-        <div
-          className="
+    <>
+      <Header
+        cardCount={cardFavoriteCount}
+        totalCards={cardList.length}
+      />
+      <main className="container min-h-screen bg-slate-50 text-slate-950 p-4 transition-colors dark:bg-[#101828] dark:text-slate-100">
+        <div className="space-y-10">
+          <div
+            className="
           w-40
           flex items-center justify-center 
           shadow-[0_4px_6px_-4px_rgba(0,0,0,0.1),0_10px_15px_-3px_rgba(0,0,0,0.1)] 
@@ -96,45 +104,59 @@ export default function Home() {
           px-6 py-3 
           text-[16px]  font-semibold text-white
           cursor-pointer"
-          onClick={handleToggleForm}
-        >
-          {isOpenForm ? "❌ Close Form" : "✨ Add Card"}
+            onClick={handleToggleForm}
+          >
+            {isOpenForm ? "❌ Close Form" : "✨ Add Card"}
+          </div>
+          {isOpenForm && <AddCardForm onAdd={handleAddCard} />}
+
+          <div
+            className=" w-full rounded-xl flex items-center justify-center py-4 mb-5 text-sm text-center 
+                bg-[#eff6ff] text-[#193cb8] border border-[#bedbff] 
+            "
           
-        </div>
-        {isOpenForm && <AddCardForm onAdd={handleAddCard} />}
-        <div className="grid grid-cols-1 gap-8 md:grid-cols-2 xl:grid-cols-3">
-          {cardList.map((card, index) => (
-            <motion.div
-              key={card.id}
-              layout
-              initial={{ opacity: 0, y: 20 }}
-              animate={
-                draggedId === card.id
-                  ? { opacity: 0.9, scale: 1.02, zIndex: 20 }
-                  : { opacity: 1, scale: 1, zIndex: 0 }
-              }
-              whileHover={{ y: -6, scale: 1.01 }}
-              transition={{ type: "spring", stiffness: 280, damping: 26 }}
-              className="w-120 relative rounded-2xl"
-            >
-              <FlipCard
-                onDragStart={() => handleDragStart(index, card.id)}
-                onDragEnd={handleDragEnd}
-                onDrop={() => handleDrop(index)}
-                onDragOver={handleDragOver}
-                front={<FrontCard {...card} />}
-                back={
-                  <BackCard
-                    props={card}
-                    handleRemove={handleRemoveCard}
-                    onToggleFavorite={handleToggleFavorite}
-                  />
+          >
+            💡{" "}
+            <span style={{ color: "var(--muted)" }}>
+              <strong style={{ color: "#193cb8" }}>Підказка:</strong>{" "}
+              Перетягуйте картки, щоб змінити їх порядок
+            </span>
+          </div>
+
+          <div className="grid grid-cols-1 gap-8 md:grid-cols-2 xl:grid-cols-3">
+            {cardList.map((card, index) => (
+              <motion.div
+                key={card.id}
+                layout
+                initial={{ opacity: 0, y: 20 }}
+                animate={
+                  draggedId === card.id
+                    ? { opacity: 0.9, scale: 1.02, zIndex: 20 }
+                    : { opacity: 1, scale: 1, zIndex: 0 }
                 }
-              />
-            </motion.div>
-          ))}
+                whileHover={{ y: -6, scale: 1.01 }}
+                transition={{ type: "spring", stiffness: 280, damping: 26 }}
+                className="w-120 relative rounded-2xl"
+              >
+                <FlipCard
+                  onDragStart={() => handleDragStart(index, card.id)}
+                  onDragEnd={handleDragEnd}
+                  onDrop={() => handleDrop(index)}
+                  onDragOver={handleDragOver}
+                  front={<FrontCard {...card} />}
+                  back={
+                    <BackCard
+                      props={card}
+                      handleRemove={handleRemoveCard}
+                      onToggleFavorite={handleToggleFavorite}
+                    />
+                  }
+                />
+              </motion.div>
+            ))}
+          </div>
         </div>
-      </div>
-    </main>
+      </main>
+    </>
   );
 }

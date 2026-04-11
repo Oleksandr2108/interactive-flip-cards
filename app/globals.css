@@ -1,1 +1,10 @@
 @import "tailwindcss";
+
+@custom-variant dark (&:where(.dark, .dark *));
+
+.container {
+  @apply max-w-[1536px] mx-auto;
+}
+body {
+  @apply bg-white text-slate-950 transition-colors dark:bg-[#0A0A0A] dark:text-slate-100;
+}

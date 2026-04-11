@@ -65,7 +65,7 @@ const AddCardForm = ({ onAdd }: AddCardFormProps) => {
   };
 
   const getInputClass = (field: keyof FormState) =>
-    `w-full mt-2 rounded-2xl border px-4 py-3 bg-slate-100 text-slate-950 outline-none transition focus:border-sky-400 ${
+    `w-full mt-2 rounded-2xl border px-4 py-3 bg-slate-100 text-slate-950 outline-none transition focus:border-sky-400 dark:bg-slate-800 dark:text-slate-100 dark:border-slate-600 dark:focus:border-sky-300 ${
       errors[field] ? "border-red-500" : "border-slate-300"
     }`;
 
@@ -131,11 +131,13 @@ const AddCardForm = ({ onAdd }: AddCardFormProps) => {
   return (
     <form
       onSubmit={handleSubmit}
-      className="rounded-3xl border border-slate-200 bg-white p-6 text-slate-950 shadow-xl shadow-slate-200/40"
+      className="rounded-3xl border border-slate-200 bg-white p-6 text-slate-950 shadow-xl shadow-slate-200/40 dark:border-slate-700 dark:bg-slate-900 dark:text-slate-100 dark:shadow-black/20"
     >
-      <h2 className="text-xl font-semibold text-slate-950">Add New Card</h2>
+      <h2 className="text-xl font-semibold text-slate-950 dark:text-slate-100">
+        Add New Card
+      </h2>
       <div className="mt-6 grid gap-4 md:grid-cols-2">
-        <label className="space-y-2 text-sm text-slate-600">
+        <label className="space-y-2 text-sm text-slate-600 dark:text-slate-300">
           Title*
           <input
             value={form.title}
@@ -145,7 +147,7 @@ const AddCardForm = ({ onAdd }: AddCardFormProps) => {
           />
           {renderError("title")}
         </label>
-        <label className="space-y-2 text-sm text-slate-600">
+        <label className="space-y-2 text-sm text-slate-600 dark:text-slate-300">
           Image URL*
           <input
             value={form.image}
@@ -156,7 +158,7 @@ const AddCardForm = ({ onAdd }: AddCardFormProps) => {
           {renderError("image")}
         </label>
 
-        <label className="space-y-2 text-sm text-slate-600">
+        <label className="space-y-2 text-sm text-slate-600 dark:text-slate-300">
           Category*
           <select
             value={form.category}
@@ -176,7 +178,7 @@ const AddCardForm = ({ onAdd }: AddCardFormProps) => {
           </select>
           {renderError("category")}
         </label>
-        <label className="space-y-2 text-sm text-slate-600">
+        <label className="space-y-2 text-sm text-slate-600 dark:text-slate-300">
           Rarity*
           <select
             value={form.rarity}
@@ -196,7 +198,7 @@ const AddCardForm = ({ onAdd }: AddCardFormProps) => {
           </select>
           {renderError("rarity")}
         </label>
-        <label className="space-y-2 text-sm text-slate-300 md:col-span-2">
+        <label className="space-y-2 text-sm text-slate-300 md:col-span-2 dark:text-slate-300">
           Description*
           <textarea
             value={form.description}
@@ -208,7 +210,7 @@ const AddCardForm = ({ onAdd }: AddCardFormProps) => {
           />
           {renderError("description")}
         </label>
-        <label className="space-y-2 text-sm text-slate-600">
+        <label className="space-y-2 text-sm text-slate-600 dark:text-slate-300">
           Power {form.power}
           <input
             type="range"
@@ -218,10 +220,10 @@ const AddCardForm = ({ onAdd }: AddCardFormProps) => {
             onChange={(event) =>
               handleChange("power", Number(event.target.value))
             }
-            className="w-full rounded-2xl border border-slate-300 bg-slate-100  py-3 text-slate-950 outline-none transition focus:border-sky-400"
+            className="w-full rounded-2xl border border-slate-300 bg-slate-100  py-3 text-slate-950 outline-none transition focus:border-sky-400 dark:border-slate-600 dark:bg-slate-800"
           />
         </label>
-        <label className="space-y-2 text-sm text-slate-600">
+        <label className="space-y-2 text-sm text-slate-600 dark:text-slate-300">
           Defense {form.defense}
           <input
             type="range"
@@ -231,10 +233,10 @@ const AddCardForm = ({ onAdd }: AddCardFormProps) => {
             onChange={(event) =>
               handleChange("defense", Number(event.target.value))
             }
-            className="w-full rounded-2xl border border-slate-300 bg-slate-100  py-3 text-slate-950 outline-none transition focus:border-sky-400"
+            className="w-full rounded-2xl border border-slate-300 bg-slate-100  py-3 text-slate-950 outline-none transition focus:border-sky-400 dark:border-slate-600 dark:bg-slate-800"
           />
         </label>
-        <label className="space-y-2 text-sm text-slate-600">
+        <label className="space-y-2 text-sm text-slate-600 dark:text-slate-300">
           Speed {form.speed}
           <input
             type="range"
@@ -244,10 +246,9 @@ const AddCardForm = ({ onAdd }: AddCardFormProps) => {
             onChange={(event) =>
               handleChange("speed", Number(event.target.value))
             }
-            className="w-full h-2 rounded-2xl border border-slate-300 bg-slate-100  py-3 text-slate-950 outline-none transition focus:border-sky-400"
+            className="w-full h-2 rounded-2xl border border-slate-300 bg-slate-100  py-3 text-slate-950 outline-none transition focus:border-sky-400 dark:border-slate-600 dark:bg-slate-800"
           />
         </label>
-        
       </div>
       <button
         type="submit"
