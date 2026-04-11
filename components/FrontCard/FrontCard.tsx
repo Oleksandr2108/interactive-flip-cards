@@ -1,4 +1,6 @@
 import Image from "next/image";
+import EmptyStar from "@/assets/icon/EmptyStar.svg";
+import Star from "@/assets/icon/Star.svg";
 
 interface FrontCardProps {
   title: string;
@@ -9,8 +11,25 @@ interface FrontCardProps {
 
 const FrontCard = (props: FrontCardProps) => {
   return (
-    <div className="">
-      <div className="w-[480px] h-[200px] overflow-hidden rounded-t-lg">
+    <div className="relative">
+      <div className="bg-white flex items-center justify-center absolute rounded-full w-10 h-10 top-3 right-3 z-10">
+        {props.isFavorite ? (
+          <Image
+            src={Star}
+            alt="Favorite"
+            width={24}
+            height={24}
+          />
+        ) : (
+          <Image
+            src={EmptyStar}
+            alt="Not Favorite"
+            width={24}
+            height={24}
+          />
+        )}
+      </div>
+      <div className="w-120 h-50 overflow-hidden rounded-t-lg">
         <Image
           width={480}
           height={200}

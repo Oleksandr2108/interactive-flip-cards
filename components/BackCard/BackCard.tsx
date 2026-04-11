@@ -1,4 +1,8 @@
 import { Card } from "@/types/Card";
+import EmptyStar from "@/assets/icon/EmptyStar.svg";
+import Star from "@/assets/icon/Star.svg";
+import Basket from "@/assets/icon/basket.png";
+import Image from "next/image";
 
 interface BackCardProps {
   props: Card;
@@ -7,15 +11,25 @@ interface BackCardProps {
 
 const BackCard = ({ props, handleRemove }: BackCardProps) => {
   return (
-    <div className="back-card p-6">
+    <div className="back-card p-6 h-full flex flex-col">
       <div className="flex items-center justify-between">
         <h3 className={`font-bold text-xl  text-[#101828] text-center`}>
           {props.title}
         </h3>
         {props.isFavorite ? (
-          <span className="text-amber-500 text-lg ml-2">⭐</span>
+          <Image
+            src={Star}
+            alt="Favorite"
+            width={24}
+            height={24}
+          />
         ) : (
-          <span className="text-amber-500 text-lg ml-2">☆</span>
+          <Image
+            src={EmptyStar}
+            alt="Not Favorite"
+            width={24}
+            height={24}
+          />
         )}
         <div className="rounded-full px-3 py-1 bg-[#2b7fff] flex items-center">
           <span className="text-xs text-white">{props.stats.rarity}</span>
@@ -24,7 +38,7 @@ const BackCard = ({ props, handleRemove }: BackCardProps) => {
       <p className="text-center text-[#364153] text-sm mt-4">
         {props.description}
       </p>
-      <div>
+      <div className="flex-1">
         <p className="mt-3 flex justify-between text-sm font-bold text-[#364153]">
           <span>Power :</span>
           <span className="text-[#fb2c36]">{props.stats.power}</span>
@@ -55,23 +69,21 @@ const BackCard = ({ props, handleRemove }: BackCardProps) => {
             style={{ width: `${props.stats.speed}%` }}
           />
         </div>
-
-        <div>
-          <button
-            onClick={() => handleRemove(props.id)}
-            className="bg-red-500 text-white py-2 px-4 rounded-full hover:bg-red-600"
-          >
-            Remove Card
-          </button>
-        </div>
-
-        {/* <p className="h-10 text-lg font-bold text-[#101828]">
-          Power 🌍 : {props.stats.power}
-        </p>
-        <p>Defense🌍: {props.stats.defense}</p>
-        <p>Speed:🌍 {props.stats.speed}</p>
-        <p>Rarity:🌍 {props.stats.rarity}</p> */}
       </div>
+
+      <button
+        onClick={() => handleRemove(props.id)}
+        className="w-full bg-red-500 text-white py-2 px-4 rounded-full hover:bg-red-600 flex items-center justify-center mt-4 cursor-pointer"
+      >
+        <Image
+          src={Basket}
+          alt="Remove"
+          width={20}
+          height={28}
+          className="inline-block mr-2"
+        />
+        Delete
+      </button>
     </div>
   );
 };
