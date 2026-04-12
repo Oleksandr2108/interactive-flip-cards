@@ -35,6 +35,7 @@ const FrontCard = (props: FrontCardProps) => {
           height={200}
           src={props.image}
           alt={props.title}
+          unoptimized 
           className="w-full h-full object-cover"
         />
       </div>
