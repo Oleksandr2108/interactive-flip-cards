@@ -23,25 +23,16 @@ const BackCard = ({ props, handleRemove, onToggleFavorite }: BackCardProps) => {
         >
           {props.title}
         </h3>
-        {props.isFavorite ? (
-          <Image
-            src={Star}
-            alt="Favorite"
-            width={24}
-            height={24}
-            className="cursor-pointer"
-            onClick={() => onToggleFavorite(props.id)}
-          />
-        ) : (
-          <Image
-            src={EmptyStar}
-            alt="Not Favorite"
-            width={24}
-            height={24}
-            className="cursor-pointer"
-            onClick={() => onToggleFavorite(props.id)}
-          />
-        )}
+
+        <Image
+          src={props.isFavorite ? Star : EmptyStar}
+          alt={props.isFavorite ? "Favorite" : "Not Favorite"}
+          width={24}
+          height={24}
+          className="cursor-pointer"
+          onClick={() => onToggleFavorite(props.id)}
+        />
+
         <div className="rounded-full px-3 py-1 bg-[#2b7fff] flex items-center">
           <span className="text-xs text-white">{props.stats.rarity}</span>
         </div>

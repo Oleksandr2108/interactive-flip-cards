@@ -12,3 +12,13 @@ export type Card = {
   category: "fire" | "water" | "earth" | "air";
   isFavorite: boolean;
 };
+
+export const CATEGORY_MAP: Record<
+  Card["category"],
+  { label: string; icon: string }
+> = {
+  fire: { label: "Fire", icon: "🔥" },
+  water: { label: "Water", icon: "💧" },
+  earth: { label: "Earth", icon: "🌍" },
+  air: { label: "Air", icon: "💨" },
+};
