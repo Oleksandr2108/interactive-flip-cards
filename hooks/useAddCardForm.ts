@@ -2,50 +2,8 @@
 
 import { useState } from "react";
 import { Card } from "@/types/Card";
-
-type CategoryOption = Card["category"] | "";
-type RarityOption = Card["stats"]["rarity"] | "";
-
-export type FormState = {
-  title: string;
-  image: string;
-  description: string;
-  category: CategoryOption;
-  power: number;
-  defense: number;
-  speed: number;
-  rarity: RarityOption;
-  isFavorite: boolean;
-};
-
-const defaultFormState: FormState = {
-  title: "",
-  image: "",
-  description: "",
-  category: "",
-  power: 50,
-  defense: 50,
-  speed: 50,
-  rarity: "",
-  isFavorite: false,
-};
-
-export const categoryOptions: Array<{ value: CategoryOption; label: string }> =
-  [
-    { value: "", label: "Select category" },
-    { value: "fire", label: "Fire" },
-    { value: "water", label: "Water" },
-    { value: "earth", label: "Earth" },
-    { value: "air", label: "Air" },
-  ];
-
-export const rarityOptions: Array<{ value: RarityOption; label: string }> = [
-  { value: "", label: "Select rarity" },
-  { value: "Common", label: "Common" },
-  { value: "Rare", label: "Rare" },
-  { value: "Epic", label: "Epic" },
-  { value: "Legendary", label: "Legendary" },
-];
+import { FormState } from "./useAddCardForm.model";
+import { defaultFormState } from "./useAddCardForm.constants";
 
 export const useAddCardForm = (onAdd: (card: Card) => void) => {
   const [form, setForm] = useState<FormState>(defaultFormState);
@@ -60,11 +18,6 @@ export const useAddCardForm = (onAdd: (card: Card) => void) => {
     setForm((prev) => ({ ...prev, [key]: value }));
     setErrors((prev) => ({ ...prev, [key]: "" }));
   };
-
-  const getInputClass = (field: keyof FormState) =>
-    `w-full mt-2 rounded-2xl border px-4 py-3 bg-slate-100 text-slate-950 outline-none transition focus:border-sky-400 dark:bg-slate-800 dark:text-slate-100 dark:border-slate-600 dark:focus:border-sky-300 ${
-      errors[field] ? "border-red-500" : "border-slate-300"
-    }`;
 
   const renderError = (field: keyof FormState) => errors[field] || null;
 
@@ -126,7 +79,6 @@ export const useAddCardForm = (onAdd: (card: Card) => void) => {
     form,
     errors,
     handleChange,
-    getInputClass,
     renderError,
     handleSubmit,
   };

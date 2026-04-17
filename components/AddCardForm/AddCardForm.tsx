@@ -1,12 +1,12 @@
 "use client";
 
 import { Card } from "@/types/Card";
+import { useAddCardForm } from "@/hooks/useAddCardForm";
 import {
-  useAddCardForm,
   categoryOptions,
   rarityOptions,
-  FormState,
-} from "@/hooks/useAddCardForm";
+} from "@/hooks/useAddCardForm.constants";
+import { FormState } from "@/hooks/useAddCardForm.model";
 
 interface AddCardFormProps {
   onAdd: (card: Card) => void;
@@ -16,8 +16,13 @@ type CategoryOption = FormState["category"];
 type RarityOption = FormState["rarity"];
 
 const AddCardForm = ({ onAdd }: AddCardFormProps) => {
-  const { form, handleChange, getInputClass, renderError, handleSubmit } =
+  const { form, errors, handleChange, renderError, handleSubmit } =
     useAddCardForm(onAdd);
+
+  const getInputClass = (field: keyof FormState) =>
+    `w-full mt-2 rounded-2xl border px-4 py-3 bg-slate-100 text-slate-950 outline-none transition focus:border-sky-400 dark:bg-slate-800 dark:text-slate-100 dark:border-slate-600 dark:focus:border-sky-300 ${
+      errors[field] ? "border-red-500" : "border-slate-300"
+    }`;
 
   const renderErrorMessage = (field: keyof FormState) => {
     const error = renderError(field);
